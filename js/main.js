@@ -1,6 +1,11 @@
 `use strict`;
-
+const addButton= document.querySelector('.js-btn-add');
 const listElement = document.querySelector(`.js-list`);
+const inputDesc = document.querySelector('.js-input-desc');
+const inputPhoto = document.querySelector('.js-input-photo');
+const inputName = document.querySelector('.js-input-name');
+const labelMessageError = document.querySelector('.js-label-error');
+
 
 const kitten1Url = `https://dev.adalab.es/gato-siames.webp`;
 const kitten1Name = `Anastacio`;
@@ -85,3 +90,15 @@ if (matchingKittens === '') {
   listElement.innerHTML = matchingKittens;
 }
 // listElement.innerHTML = `${kitten1} ${kitten2} ${kitten3}`;
+
+addButton.addEventListener('click',(event)=>{
+  const valueDesc = inputDesc.value;
+  const valuePhoto = inputPhoto.value;
+  const valueName = inputName.value;
+  if (valueDesc === '' || valuePhoto === '' || valueName === '') {
+    labelMessageError.innerHTML='Uy, parece que se te ha olvidado algo';
+  } 
+  // else {
+  //   ejecuta código
+  // }
+});
