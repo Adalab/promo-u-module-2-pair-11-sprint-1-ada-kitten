@@ -1,11 +1,12 @@
 `use strict`;
-const addButton= document.querySelector('.js-btn-add');
+const addButton = document.querySelector('.js-btn-add');
 const listElement = document.querySelector(`.js-list`);
 const inputDesc = document.querySelector('.js-input-desc');
 const inputPhoto = document.querySelector('.js-input-photo');
 const inputName = document.querySelector('.js-input-name');
 const labelMessageError = document.querySelector('.js-label-error');
-
+const liItem = document.querySelector('.item');
+const newFormElement = document.querySelector('.new-form');
 
 const kitten1Url = `https://dev.adalab.es/gato-siames.webp`;
 const kitten1Name = `Anastacio`;
@@ -18,7 +19,7 @@ const kitten1 = `<li class="card">
        class="card_img"
        src=${kitten1Url}
        alt="siames-cat"
-     />
+      />
      <h3 class="card_title">${kitten1Name.toUpperCase()}</h3>
      <h4 class="card_race">${kitten1Race}</h4>
      <p class="card_description">
@@ -91,16 +92,51 @@ if (matchingKittens === '') {
 }
 // listElement.innerHTML = `${kitten1} ${kitten2} ${kitten3}`;
 
-addButton.addEventListener('click',(event)=>{
+/*PASOS PARA RESOLVER EL PROBLMEA:
+
+1-CREAR CONSTANTE PARA EL BOTÓN '+'
+2-CREAR CONSTANTE PARA EL FORMULARIO
+3-CREAR UNA FUNCIÓN QUE MUESTRE EL FORMULARIO AL PULSAR '+'
+4-CREAR UNA FUNCIÓN QUE OCULTE EL FORMULARIO AL PULSAR '+'
+
+
+*/
+
+function showNewCatForm() {
+  newFormElement.classList.remove('collapsed');
+}
+
+function hideNewCatForm() {
+  newFormElement.classList.add('collapsed');
+}
+
+function handleClickNewCatForm(event) {
+  event.preventDefault();
+  if (newFormElement.classList.contains('collapsed')) {
+    showNewCatForm();
+  } else {
+    hideNewCatForm();
+  }
+  //classList.toggle
+}
+
+function addNewKitten(event) {
   event.preventDefault();
   const valueDesc = inputDesc.value;
   const valuePhoto = inputPhoto.value;
   const valueName = inputName.value;
   if (valueDesc === '' || valuePhoto === '' || valueName === '') {
-    labelMessageError.innerHTML='Uy, parece que se te ha olvidado algo';
-  } 
-  else {
-    labelMessageError.innerHTML='';
-  } 
+    labelMessageError.innerHTML = 'Uy, parece que se te ha olvidado algo';
+  } else {
+    labelMessageError.innerHTML = '';
+    listElement.innerHTML += renderKitten(
+      valuePhoto,
+      valueName,
+      valueDesc,
+      'X'
+    );
+  }
+}
 
-});
+liItem.addEventListener('click', handleClickNewCatForm);
+addButton.addEventListener('click', addNewKitten);
