@@ -19,46 +19,59 @@ const input_search_race = document.querySelector('.js_in_search_race'); //CASILL
 const buttonSearch = document.querySelector('.js-button-search'); //BOTÓN BUSCAR
 
 //CONSTANTES DE LOS GATITOS:
+
 //KITTEN 1:
-const kitten1Url = `https://dev.adalab.es/gato-siames.webp`;
-const kitten1Name = `Anastacio`;
-const kitten1Desc = `
-Porte elegante, su patrón de color tan característico y sus ojos de un azul intenso, pero su historia se remonta a Asía al menos hace 500 años, donde tuvo su origen muy posiblemente.`;
-const kitten1Race = `Siamés`;
+const kittenData_1 = {
+  image: 'https://dev.adalab.es/gato-siames.webp',
+  name: 'Anastacio',
+  desc: ' Porte elegante, su patrón de color tan característico y sus ojos de un azul intenso, pero su historia se remonta a Asía al menos hace 500 años, donde tuvo su origen muy posiblemente.',
+  race: 'Siamés',
+};
+
 
 //KITTEN2:
-const kitten2Url = `https://dev.adalab.es/sphynx-gato.webp`;
-const kitten2Name = `Fiona`;
-const kitten2Desc = `Produce fascinación y curiosidad. Exótico, raro, bello, extraño… hasta con pinta de alienígena han llegado a definir a esta raza gatuna que se caracteriza por la «ausencia» de pelo.`;
-const kitten2Race = `Sphynx-cat`;
+const kittenData_2= {
+  image: 'https://dev.adalab.es/sphynx-gato.webp',
+  name: 'Fiona',
+  desc: ' Produce fascinación y curiosidad. Exótico, raro, bello, extraño… hasta con pinta de alienígena han llegado a definir a esta raza gatuna que se caracteriza por la «ausencia» de pelo.',
+  race: 'Sphynx-cat',
+};
 
 //KITTEN3:
-const kitten3Url = `https://dev.adalab.es/maine-coon-cat.webp`;
-const kitten3Name = `Cielo`;
-const kitten3Desc = `Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta.`;
-const kitten3Race = `Maine-Coon`;
+const kittenData_3= {
+  image: 'https://dev.adalab.es/maine-coon-cat.webp',
+  name: 'Cielo',
+  desc: 'Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta ',
+  race: 'Maine-Coon',
+};
 
 //FUNCIÓN PARA CREAR GATITOS:
-function renderKitten(photo, name, race, desc) {
+function renderKitten(kittenData) {
   const html = `<li class="card">
         <article>
           <img
             class="card_img"
-            src=${photo}
+            src=${kittenData.image}
             alt="siames-cat"
           />
-          <h3 class="card_title">${name.toUpperCase()} </h3>
-          <h4 class="card_race">${race}</h4>
-          <p class="card_description">${desc}</p>
+          <h3 class="card_title">${kittenData.name.toUpperCase()} </h3>
+          <h4 class="card_race">${kittenData.race}</h4>
+          <p class="card_description">${kittenData.desc}</p>
         </article>
       </li>`;
   return html;
 }
-const kitten3 = renderKitten(kitten3Url, kitten3Name, kitten3Desc, kitten3Race);
-const kitten2 = renderKitten(kitten2Url, kitten2Name, kitten2Desc, kitten2Race);
-const kitten1 = renderKitten(kitten1Url, kitten1Name, kitten1Desc, kitten1Race);
 
-listElement.innerHTML = `${kitten1} ${kitten2} ${kitten3}`;
+const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
+
+function renderKittenList(kittenDataList) {
+  listElement.innerHTML='';
+  for(let i=0; i<kittenDataList.length; i++){
+  const kittenItem=kittenDataList[i];
+  listElement.innerHTML+=renderKitten(kittenItem);
+}
+}
+renderKittenList(kittenDataList);
 
 //PARA ACTIVAR CASILLA DE FILTADO/BÚSQUEDA DE GATITOS
 const filterKitten = (event) => {
@@ -67,22 +80,22 @@ const filterKitten = (event) => {
   const raceSearchText = input_search_race.value;
   listElement.innerHTML = '';
   if (
-    kitten1Desc.includes(descrSearchText) ||
-    kitten1Race.includes(raceSearchText)
+    kittenData_1.desc.includes(descrSearchText) ||
+    kittenData_1.race.includes(raceSearchText)
   ) {
-    listElement.innerHTML += kitten1;
+    listElement.innerHTML += kittenData_1;
   }
   if (
-    kitten2Desc.includes(descrSearchText) ||
-    kitten2Race.includes(raceSearchText)
+    kittenData_2.desc.includes(descrSearchText) ||
+    kittenData_2.race.includes(raceSearchText)
   ) {
-    listElement.innerHTML += kitten2;
+    listElement.innerHTML += kittenData_2;
   }
   if (
-    kitten3Desc.includes(descrSearchText) ||
-    kitten3Race.includes(raceSearchText)
+    kittenData_3.desc.includes(descrSearchText) ||
+    kittenData_3.race.includes(raceSearchText)
   ) {
-    listElement.innerHTML += kitten3;
+    listElement.innerHTML += kittenData_3;
   }
 };
 
