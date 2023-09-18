@@ -28,9 +28,8 @@ const kittenData_1 = {
   race: 'Siamés',
 };
 
-
 //KITTEN2:
-const kittenData_2= {
+const kittenData_2 = {
   image: 'https://dev.adalab.es/sphynx-gato.webp',
   name: 'Fiona',
   desc: ' Produce fascinación y curiosidad. Exótico, raro, bello, extraño… hasta con pinta de alienígena han llegado a definir a esta raza gatuna que se caracteriza por la «ausencia» de pelo.',
@@ -38,7 +37,7 @@ const kittenData_2= {
 };
 
 //KITTEN3:
-const kittenData_3= {
+const kittenData_3 = {
   image: 'https://dev.adalab.es/maine-coon-cat.webp',
   name: 'Cielo',
   desc: 'Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta ',
@@ -65,39 +64,43 @@ function renderKitten(kittenData) {
 const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
 
 function renderKittenList(kittenDataList) {
-  listElement.innerHTML='';
-  for(let i=0; i<kittenDataList.length; i++){
-  const kittenItem=kittenDataList[i];
-  listElement.innerHTML+=renderKitten(kittenItem);
-}
+  listElement.innerHTML = '';
+  for (let i = 0; i < kittenDataList.length; i++) {
+    const kittenItem = kittenDataList[i];
+    listElement.innerHTML += renderKitten(kittenItem);
+  }
 }
 renderKittenList(kittenDataList);
 
 //PARA ACTIVAR CASILLA DE FILTADO/BÚSQUEDA DE GATITOS
-const filterKitten = (event) => {
+function filterKitten(event) {
   event.preventDefault();
   const descrSearchText = input_search_desc.value;
   const raceSearchText = input_search_race.value;
   listElement.innerHTML = '';
-  if (
-    kittenData_1.desc.includes(descrSearchText) ||
-    kittenData_1.race.includes(raceSearchText)
-  ) {
-    listElement.innerHTML += kittenData_1;
+  let valueInputOne = descrSearchText.toLowerCase();
+  let valueInputTwo = raceSearchText.toLowerCase();
+  for (const kittenItem of kittenDataList) {
+    if (
+      kittenItem.desc.includes(valueInputOne) ||
+      kittenItem.race.includes(valueInputTwo)
+    ) {
+      listElement.innerHTML += renderKitten(kittenItem);
+    } else if (
+      kittenItem.desc === '' &&
+      kittenItem.race.includes(raceSearchText)
+    ) {
+      listElement.innerHTML += renderKitten(kittenItem);
+    } else if (
+      kittenItem.desc.includes(descrSearchText) &&
+      kittenItem.race === ''
+    ) {
+      listElement.innerHTML += renderKitten(kittenItem);
+    }
   }
-  if (
-    kittenData_2.desc.includes(descrSearchText) ||
-    kittenData_2.race.includes(raceSearchText)
-  ) {
-    listElement.innerHTML += kittenData_2;
-  }
-  if (
-    kittenData_3.desc.includes(descrSearchText) ||
-    kittenData_3.race.includes(raceSearchText)
-  ) {
-    listElement.innerHTML += kittenData_3;
-  }
-};
+}
+
+// poner mensaje que se deben rellenar ambos campos ///
 
 //MOSTRAR U OCULTAR FORMNULARIO PARA AÑADIR GATOS:
 function showNewCatForm() {
